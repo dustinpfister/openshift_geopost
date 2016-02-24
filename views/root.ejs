@@ -1,0 +1,113 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <title>geo post</title>
+    <meta charset="utf-8">
+    <style>
+        body {
+            background: #000000;
+            color: #ffffff;
+            margin: 0px;
+            padding: 0px;
+        }
+        
+        #ui {
+            width: 640px;
+            padding: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+
+    <img src="img/map.png">
+
+    <div id="ui">
+
+
+
+        <form action="/" method="post">
+
+            <div>
+                Location:
+                <input id="location" name="location" value="">
+            </div>
+            <div>
+                Country:
+                <input id="country" name="country" value="">
+            </div>
+
+            <input id="get_location" type="button" value="get location">
+            <input type="submit" value="Submit" />
+        </form>
+    </div>
+
+    <script src="http://maps.googleapis.com/maps/api/js"></script>
+    <script>
+        // get location 
+        var getLocation = function (done) {
+
+                navigator.geolocation.getCurrentPosition(function (pos) {
+
+                    done(pos.coords.latitude, pos.coords.longitude);
+
+                });
+
+            },
+
+            // get a country name from a google maps Geocoder call
+            // https://developers.google.com/maps/documentation/geocoding/intro
+            getCountry = function (res) {
+
+                var country = 'unkown';
+
+                res.forEach(function (result) {
+
+                    result.types.forEach(function (typ) {
+
+                        if (typ === 'country') {
+                            country = result.formatted_address;
+                        }
+
+                    });
+
+                });
+
+                return country;
+
+            };
+
+        // 
+        document.getElementById('get_location').addEventListener('click', function (e) {
+
+            getLocation(function (lat, long) {
+
+                document.getElementById('location').value = lat + ',' + long;
+
+                console.log(lat + ', ' + long);
+
+                // 43.6705481,-79.4129563 (toronto)
+
+                var point = new google.maps.LatLng(lat, long);
+                //var point = new google.maps.LatLng(43.6705481,-79.4129563);
+
+                // http://stackoverflow.com/questions/17402103/google-api-for-location-based-on-user-ip-address
+                new google.maps.Geocoder().geocode({
+                    'latLng': point
+                }, function (res, status) {
+
+
+                    document.getElementById('country').value = getCountry(res);
+
+                });
+
+            });
+
+        });
+    </script>
+
+</body>
+
+</html>

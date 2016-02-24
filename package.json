@@ -1,0 +1,31 @@
+{
+  "name": "openshift_geopost",
+  "version": "1.0.0",
+  "description": "simple openshift app for a client",
+  "main": "server.js",
+  "dependencies": {
+    "googlemaps": "1.2.0",
+    "express": "^4.13.3",
+    "ejs": "^2.3.4",
+    "body-parser": "^1.14.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/dustinpfister/openshift_geopost.git"
+  },
+  "keywords": [
+    "javascript",
+    "geolocation",
+    "posting"
+  ],
+  "author": "Dustin Pfister",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/dustinpfister/openshift_geopost/issues"
+  },
+  "homepage": "https://github.com/dustinpfister/openshift_geopost#readme"
+}
